@@ -5,6 +5,9 @@ import BikeDetailpage from "../Pages/BikeDetailpage";
 import Loginpage from "../Pages/Loginpage";
 import Signuppage from "../Pages/Signuppage";
 import BookBike from "../Pages/BookBike";
+import OurServices from "../Pages/OurServices";
+import AboutUs from "../Pages/AboutUs";
+import FaqPage from "../Pages/FaqPage";
 
 const Router = () => {
   return (
@@ -15,6 +18,11 @@ const Router = () => {
         <Route path="/login" element={<Loginpage />} />
         <Route path="/signup" element={<Signuppage />} />
         <Route path="/bookbike" element={<BookBike />} />
+        <Route path="/service" element={<OurServices />} />
+        <Route path="/aboutus" element={<AboutUs />} />
+        <Route path="/FAQS" element={<FaqPage />} />
+
+
       </Routes>
     </>
   );

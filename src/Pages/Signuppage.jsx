@@ -15,6 +15,7 @@ const Signuppage = () => {
             </label>
             <input
               type="text"
+              
               id="fullName"
               placeholder="Enter your name"
               className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#025CA3]"

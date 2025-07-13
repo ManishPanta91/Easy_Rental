@@ -3,7 +3,7 @@ import * as Yup from "yup";
 import { useFormik } from "formik";
 import { toast } from "react-toastify";
 import { useSignUserMutation } from "../App/auth/userApi"; // ✅ Adjust path if needed
-import { FaEye, FaEyeSlash } from "react-icons/fa"; // ✅ Optional: Eye icon from react-icons
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 // ✅ Validation Schema
 export const SignupSchema = Yup.object({
@@ -25,44 +25,43 @@ const Signuppage = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showCPassword, setShowCPassword] = useState(false);
 
-  const {
-    values,
-    errors,
-    touched,
-    handleChange,
-    handleBlur,
-    handleSubmit,
-  } = useFormik({
-    initialValues: {
-      fullName: "",
-      email: "",
-      address: "",
-      phone: "",
-      password: "",
-      confirmPassword: "",
-    },
-    validationSchema: SignupSchema,
-    onSubmit: async (val) => {
-      try {
-        const response = await registerUser(val).unwrap();
-        console.log("Registration success:", response);
-        toast.success("Registration successful");
-      } catch (err) {
-        console.error("Registration error:", err);
-        toast.error("Registration failed");
-      }
-    },
-  });
+  const { values, errors, touched, handleChange, handleBlur, handleSubmit } =
+    useFormik({
+      initialValues: {
+        fullName: "",
+        email: "",
+        address: "",
+        phone: "",
+        password: "",
+        confirmPassword: "",
+      },
+      validationSchema: SignupSchema,
+      onSubmit: async (val) => {
+        try {
+          const response = await registerUser(val).unwrap();
+          console.log("Registration success:", response);
+          toast.success("Registration successful");
+        } catch (err) {
+          console.error("Registration error:", err);
+          toast.error("Registration failed");
+        }
+      },
+    });
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
       <div className="bg-white shadow-lg rounded-xl px-8 py-10 w-full max-w-md">
-        <h2 className="text-2xl font-semibold text-center text-[#025CA3] mb-6">REGISTER</h2>
+        <h2 className="text-2xl font-semibold text-center text-[#025CA3] mb-6">
+          REGISTER
+        </h2>
 
         <form className="space-y-5" onSubmit={handleSubmit}>
           {/* Full Name */}
           <div>
-            <label htmlFor="fullName" className="block text-sm font-medium text-gray-700 mb-1">
+            <label
+              htmlFor="fullName"
+              className="block text-sm font-medium text-gray-700 mb-1"
+            >
               Full Name
             </label>
             <input
@@ -82,7 +81,10 @@ const Signuppage = () => {
 
           {/* Email */}
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+            <label
+              htmlFor="email"
+              className="block text-sm font-medium text-gray-700 mb-1"
+            >
               Email
             </label>
             <input
@@ -102,7 +104,10 @@ const Signuppage = () => {
 
           {/* Address */}
           <div>
-            <label htmlFor="address" className="block text-sm font-medium text-gray-700 mb-1">
+            <label
+              htmlFor="address"
+              className="block text-sm font-medium text-gray-700 mb-1"
+            >
               Address
             </label>
             <input
@@ -122,7 +127,10 @@ const Signuppage = () => {
 
           {/* Phone */}
           <div>
-            <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1">
+            <label
+              htmlFor="phone"
+              className="block text-sm font-medium text-gray-700 mb-1"
+            >
               Phone
             </label>
             <input
@@ -142,7 +150,10 @@ const Signuppage = () => {
 
           {/* Password */}
           <div className="relative">
-            <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
+            <label
+              htmlFor="password"
+              className="block text-sm font-medium text-gray-700 mb-1"
+            >
               Password
             </label>
             <input
@@ -157,7 +168,7 @@ const Signuppage = () => {
             />
             <button
               type="button"
-              className="absolute inset-y-0 right-3 flex items-center text-gray-500"
+              className="absolute right-3 mt-3 text-gray-500"
               onClick={() => setShowPassword(!showPassword)}
             >
               {showPassword ? <FaEyeSlash /> : <FaEye />}
@@ -169,7 +180,10 @@ const Signuppage = () => {
 
           {/* Confirm Password */}
           <div className="relative">
-            <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700 mb-1">
+            <label
+              htmlFor="confirmPassword"
+              className="block text-sm font-medium text-gray-700 mb-1"
+            >
               Confirm Password
             </label>
             <input
@@ -184,13 +198,15 @@ const Signuppage = () => {
             />
             <button
               type="button"
-              className="absolute inset-y-0 right-3 flex items-center text-gray-500"
+              className="absolute right-3 mt-3 text-gray-500"
               onClick={() => setShowCPassword(!showCPassword)}
             >
               {showCPassword ? <FaEyeSlash /> : <FaEye />}
             </button>
             {errors.confirmPassword && touched.confirmPassword && (
-              <p className="text-red-500 text-sm mt-1">{errors.confirmPassword}</p>
+              <p className="text-red-500 text-sm mt-1">
+                {errors.confirmPassword}
+              </p>
             )}
           </div>
 

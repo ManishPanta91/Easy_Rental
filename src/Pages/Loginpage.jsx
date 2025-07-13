@@ -1,9 +1,9 @@
-// Loginpage.jsx
-import React from "react";
+import React, { useState } from "react";
 import * as Yup from "yup";
 import { useLoginUserMutation } from "../App/auth/userApi";
 import { useFormik } from "formik";
 import { toast } from "react-toastify";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 // Validation schema
 export const LoginpageSchema = Yup.object({
@@ -12,9 +12,10 @@ export const LoginpageSchema = Yup.object({
 });
 
 const Loginpage = () => {
+  const [showPassword, setShowPassword] = useState(false);
   const [loginUser, { isLoading: isLoggingIn }] = useLoginUserMutation();
 
-  const { values, errors, touched, handleChange, handleSubmit } = useFormik({
+  const { values, errors, touched, handleChange, handleBlur, handleSubmit } = useFormik({
     initialValues: {
       email: "",
       password: "",
@@ -53,6 +54,7 @@ const Loginpage = () => {
               name="email"
               value={values.email}
               onChange={handleChange}
+              onBlur={handleBlur}
               id="email"
               placeholder="Enter your email"
               className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#025CA3]"
@@ -71,23 +73,25 @@ const Loginpage = () => {
               Password
             </label>
             <input
-              type="password"
+              type={showPassword ? "text" : "password"}
               name="password"
               value={values.password}
               onChange={handleChange}
+              onBlur={handleBlur}
               id="password"
               placeholder="Enter your password"
               className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#025CA3]"
             />
+            <button
+              type="button"
+              className="absolute right-3 mt-3 text-gray-500"
+              onClick={() => setShowPassword(!showPassword)}
+            >
+              {showPassword ? <FaEyeSlash /> : <FaEye />}
+            </button>
             {errors.password && touched.password && (
               <p className="text-red-500 text-sm mt-1">{errors.password}</p>
             )}
-            <button
-              type="button"
-              className="absolute inset-y-0 right-3 flex items-center text-gray-500"
-            >
-              👁️
-            </button>
           </div>
 
           {/* Login Button */}

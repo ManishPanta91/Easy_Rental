@@ -21,7 +21,7 @@ const Navbar = () => {
         >
           HOME
         </a>
-        <a href="#" className="text-gray-800 hover:text-blue-600 transition">
+        <a onClick={() => navigate("/rent")} href="#" className="text-gray-800 hover:text-blue-600 transition">
           BIKES FOR RENT
         </a>
         <a

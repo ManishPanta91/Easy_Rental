@@ -8,12 +8,14 @@ import BookBike from "../Pages/BookBike";
 import OurServices from "../Pages/OurServices";
 import AboutUs from "../Pages/AboutUs";
 import FaqPage from "../Pages/FaqPage";
+import Home from "../Pages/Home";
 
 const Router = () => {
   return (
     <>
       <Routes>
-        <Route path="/" element={<HomePage />} />
+        <Route path="/" element={<Home/>} />
+        <Route path="/rent" element={<HomePage />} />
         <Route path="/singlevehicle/:id" element={<BikeDetailpage />} />
         <Route path="/login" element={<Loginpage />} />
         <Route path="/signup" element={<Signuppage />} />
@@ -21,8 +23,6 @@ const Router = () => {
         <Route path="/service" element={<OurServices />} />
         <Route path="/aboutus" element={<AboutUs />} />
         <Route path="/FAQS" element={<FaqPage />} />
-
-
       </Routes>
     </>
   );

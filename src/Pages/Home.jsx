@@ -6,7 +6,7 @@ const Home = () => {
   const [activeTab, setActiveTab] = useState("bike");
 
   return (
-    <div className="bg-white  px-6 md:px-85 py-20 flex flex-col md:flex-row items-center justify-between gap-10">
+    <div className="bg-white  px-6 md:px-80 py-20 flex flex-col md:flex-row items-center justify-between gap-10">
       {/* Left Section */}
       <div className="max-w-xl">
         <div className="mb-6">

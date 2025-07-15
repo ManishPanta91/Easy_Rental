@@ -7,7 +7,7 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 // ✅ Validation Schema
 export const SignupSchema = Yup.object({
-  fullName: Yup.string().required("Enter your name"),
+  name: Yup.string().required("Enter your name"),
   email: Yup.string().email("Invalid email").required("Enter your email"),
   address: Yup.string().required("Enter your address"),
   phone: Yup.string()
@@ -25,28 +25,36 @@ const Signuppage = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showCPassword, setShowCPassword] = useState(false);
 
-  const { values, errors, touched, handleChange, handleBlur, handleSubmit } =
-    useFormik({
-      initialValues: {
-        fullName: "",
-        email: "",
-        address: "",
-        phone: "",
-        password: "",
-        confirmPassword: "",
-      },
-      validationSchema: SignupSchema,
-      onSubmit: async (val) => {
-        try {
-          const response = await registerUser(val).unwrap();
-          console.log("Registration success:", response);
-          toast.success("Registration successful");
-        } catch (err) {
-          console.error("Registration error:", err);
-          toast.error("Registration failed");
-        }
-      },
-    });
+  const {
+    values,
+    errors,
+    touched,
+    handleChange,
+    handleBlur,
+    handleSubmit,
+    resetForm,
+  } = useFormik({
+    initialValues: {
+      name: "",
+      email: "",
+      address: "",
+      phone: "",
+      password: "",
+      confirmPassword: "",
+    },
+    validationSchema: SignupSchema,
+    onSubmit: async (val) => {
+      try {
+        const response = await registerUser(val).unwrap();
+        console.log("Registration success:", response);
+        toast.success("Registration successful");
+        resetForm();
+      } catch (err) {
+        console.error("Registration error:", err);
+        toast.error("Registration failed");
+      }
+    },
+  });
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
@@ -59,23 +67,23 @@ const Signuppage = () => {
           {/* Full Name */}
           <div>
             <label
-              htmlFor="fullName"
+              htmlFor="name"
               className="block text-sm font-medium text-gray-700 mb-1"
             >
               Full Name
             </label>
             <input
               type="text"
-              name="fullName"
-              value={values.fullName}
+              name="name"
+              value={values.name}
               onChange={handleChange}
               onBlur={handleBlur}
-              id="fullName"
+              id="name"
               placeholder="Enter your name"
               className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#025CA3]"
             />
-            {errors.fullName && touched.fullName && (
-              <p className="text-red-500 text-sm mt-1">{errors.fullName}</p>
+            {errors.name && touched.name && (
+              <p className="text-red-500 text-sm mt-1">{errors.name}</p>
             )}
           </div>
 
@@ -196,6 +204,7 @@ const Signuppage = () => {
               placeholder="Re-enter password"
               className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#025CA3]"
             />
+
             <button
               type="button"
               className="absolute right-3 mt-3 text-gray-500"

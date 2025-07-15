@@ -19,7 +19,7 @@ export default function Footer() {
           {/* Left side - Home and Contact */}
           <div className="md:w-2/3">
             <div className="flex items-center space-x-3 mb-4">
-              <FaHome className="w-6 h-6 text-black" />
+              <FaHome className="w-6 h-6 text-white" />
               <span className="text-sm text-gray-200">Home</span>
             </div>
             <div>

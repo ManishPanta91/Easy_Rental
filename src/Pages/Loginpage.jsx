@@ -4,6 +4,9 @@ import { useLoginUserMutation } from "../App/auth/userApi";
 import { useFormik } from "formik";
 import { toast } from "react-toastify";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { useDispatch } from "react-redux";
+import { addUser } from "../App/auth/usersSlice";
+import { Navigate, useNavigate } from "react-router";
 
 // Validation schema
 export const LoginpageSchema = Yup.object({
@@ -12,26 +15,40 @@ export const LoginpageSchema = Yup.object({
 });
 
 const Loginpage = () => {
+  const navigate =useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [loginUser, { isLoading: isLoggingIn }] = useLoginUserMutation();
 
-  const { values, errors, touched, handleChange, handleBlur, handleSubmit } = useFormik({
-    initialValues: {
-      email: "",
-      password: "",
-    },
-    validationSchema: LoginpageSchema,
-    onSubmit: async (val) => {
-      try {
-        const response = await loginUser(val).unwrap();
-        console.log("Login successful", response);
-        toast.success("Login successful");
-      } catch (err) {
-        console.error("Login error:", err);
-        toast.error("Login failed");
-      }
-    },
-  });
+  const dispatch = useDispatch();
+
+  const { values, errors, touched, handleChange, handleBlur, handleSubmit } =
+    useFormik({
+      initialValues: {
+        email: "",
+        password: "",
+      },
+      validationSchema: LoginpageSchema,
+      onSubmit: async (val) => {
+        try {
+          const response = await loginUser(val).unwrap();
+          console.log("Login successful", response);
+          toast.success("Login successful");
+
+
+          const userData = response.Authuser;
+          dispatch(addUser(userData));
+          const token =response.token;
+          console.log("Token:", token);
+          localStorage.setItem("token", token);
+
+          navigate("/")
+
+        } catch (err) {
+          console.error("Login error:", err);
+          toast.error("Login failed");
+        }
+      },
+    });
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
